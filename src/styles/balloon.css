@@ -1,0 +1,7 @@
+.color-palette-balloon{
+  position: fixed;
+  padding: 4px;
+  border: #CCCCCC 1px solid;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+}

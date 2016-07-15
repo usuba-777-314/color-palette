@@ -1,0 +1,47 @@
+/*!
+ * color-palette v0.0.0 - Simple color picker. The user can choose to take a color from palette.
+ * Copyright 2015 hironobu-igawa
+ * license MIT
+ */
+.color-palette-balloon{
+  position: fixed;
+  padding: 4px;
+  border: #CCCCCC 1px solid;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+}
+
+.color-palette-standard-colors-title {
+  display: block;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  padding: 2px 6px;
+  background-color: #EEEEEE;
+  font-size: 16px;
+  color: #000000;
+}
+
+.color-palette-standard-colors-table {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.color-palette-standard-colors-row {
+  list-style: none;
+  padding: 0 0 0 1px;
+}
+
+.color-palette-standard-colors-row li {
+  list-style: none;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: #EEEEEE outset 1px;
+  margin: 1px 3px 3px 1px;
+}
+
+.color-palette-standard-colors-row li:hover {
+  border: #FF773E solid 2px;
+  margin: 0 2px 2px 0;
+}
