@@ -13,16 +13,23 @@ var ColorPalette;
           .css('background-color', _this.color)
           .css('color', _this.isBright() ? '#000000' : '#FFFFFF');
       });
+      this.closeListeners = [];
     }
 
     ColorPalette.prototype.open = function () {
-      if (this.isOpen()) return;
-      setTimeout(this.initPaletteElement.bind(this), 20);
+      var _this = this;
+      setTimeout(function() {
+        if (_this.isOpen()) return;
+        _this.initPaletteElement();
+      }, 20);
     };
 
     ColorPalette.prototype.close = function () {
-      if (!this.isOpen()) return;
-      setTimeout(this.destroyPaletteElement.bind(this), 20);
+      var _this = this;
+      setTimeout(function() {
+        if (!_this.isOpen()) return;
+        _this.destroyPaletteElement();
+      }, 20);
     };
 
     ColorPalette.prototype.select = function (color) {
@@ -30,42 +37,53 @@ var ColorPalette;
       this.$target.change();
     };
 
+    ColorPalette.prototype.selectOtherColor = function () {
+      var _this = this;
+      module.OtherColor.select(function (color) {
+        if (!module.RGB.isValid(color)) return;
+        _this.select(color);
+      });
+      _this.close();
+    };
+
     ColorPalette.prototype.initPaletteElement = function () {
       var _this = this;
       var $balloon = null;
+      var $standardColors = null;
 
       var initBalloon = function() {
         $balloon = $('<div>')
           .addClass('color-palette-balloon')
           .css('left', _this.xOffset + 'px')
           .css('top', _this.yOffset + 'px');
+        _this.$target.after($balloon);
 
         var close1 = function(e) {
           for (var t = e.srcElement; t != null; t = t.parentElement)
             if (t === $balloon.get(0) || t === _this.$target.get(0)) return;
           _this.close();
-          clearEvent();
         };
         $(document).on('click', close1);
 
         var close2 = function() {
           _this.close();
-          clearEvent();
         };
         $(document).on('scroll', close2);
 
-        var clearEvent = function() {
+        _this.closeListeners.push(function() {
           $(document).off('click', close1);
           $(document).off('scroll', close2);
-        };
+        });
       };
 
       var initStandardColors = function() {
-        $('<span>' + module.messages.standardColor + '</span>')
-          .addClass('color-palette-standard-colors-title')
-          .appendTo($balloon);
+        if (module.OtherColor.isActive()) {
+          $('<span>' + module.messages.standardColor + '</span>')
+            .addClass('color-palette-standard-colors-title')
+            .appendTo($balloon);
+        }
 
-        var $standardColors = $('<ul>')
+        $standardColors = $('<ul>')
           .addClass('color-palette-standard-colors-table')
           .appendTo($balloon);
         module.colors.forEach(function (colors) {
@@ -83,16 +101,43 @@ var ColorPalette;
         });
       };
 
+      var initOtherColors = function() {
+        if (!module.OtherColor.isActive()) return;
+
+        $('<span>' + module.messages.history + '</span>')
+          .addClass('color-palette-history-title')
+          .appendTo($balloon);
+
+        var $history = $('<ul>')
+          .addClass('color-palette-history')
+          .css('width', $standardColors.get(0).offsetWidth + 'px')
+          .appendTo($balloon);
+        module.OtherColor.query().forEach(function (color) {
+          $('<li>')
+            .css('background-color', color)
+            .data('color', color)
+            .on('click', _this.select.bind(_this, color))
+            .appendTo($history);
+        });
+
+        $('<button type="button">' + module.messages.selectOtherColor + '</button>')
+          .addClass('color-palette-history-select-other-color')
+          .on('click', _this.selectOtherColor.bind(_this))
+          .appendTo($balloon);
+      };
+
       initBalloon();
       initStandardColors();
+      initOtherColors();
 
       this.$palette = $balloon;
-      this.$target.after(this.$palette);
     };
 
     ColorPalette.prototype.destroyPaletteElement = function () {
       this.$palette.remove();
       this.$palette = null;
+      this.closeListeners.forEach(function(listener) {listener()});
+      this.closeListeners = [];
     };
 
     ColorPalette.prototype.isOpen = function () {
@@ -113,7 +158,7 @@ var ColorPalette;
     Object.defineProperty(ColorPalette.prototype, 'color', {
       get: function() {
         var value = this.$target.val();
-        return value.match(/^#[0-9a-fA-F]{6}$/) ? value : '#FFFFFF';
+        return module.RGB.isValid(value) ? value : '#FFFFFF';
       }
     });
 

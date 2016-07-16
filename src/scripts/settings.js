@@ -11,9 +11,16 @@ var ColorPalette;
     lang: 'default',
     messages: {
       default: {
-        standardColor: 'Standard Color'
+        standardColor: 'Standard Color',
+        history: 'History',
+        selectOtherColor: 'Other color...'
       }
     },
-    backgroundChangeFlag: true
+    backgroundChangeFlag: true,
+    otherColorFlag: false,
+    otherColorLimit: 6,
+    selectOtherColor: function(done) {
+      done(prompt('Please enter the RGB. example: "#00FFFF"'));
+    }
   };
 })(ColorPalette || (ColorPalette = {}));

@@ -1,4 +1,4 @@
-.color-palette-standard-colors-title {
+.color-palette-history-title {
   display: block;
   border-radius: 4px;
   margin-bottom: 4px;
@@ -8,18 +8,13 @@
   color: #000000;
 }
 
-.color-palette-standard-colors-table {
+.color-palette-history {
   list-style: none;
   margin: 0 0 4px 0;
-  padding: 0;
-}
-
-.color-palette-standard-colors-row {
-  list-style: none;
   padding: 0 0 0 1px;
 }
 
-.color-palette-standard-colors-row li {
+.color-palette-history li {
   list-style: none;
   display: inline-block;
   width: 15px;
@@ -28,7 +23,7 @@
   margin: 1px 3px 3px 1px;
 }
 
-.color-palette-standard-colors-row li:hover {
+.color-palette-history li:hover {
   border: #FF773E solid 2px;
   margin: 0 2px 2px 0;
 }
