@@ -197,6 +197,7 @@ var ColorPalette;
     function ColorPalette(content) {
       this.$target = $(content);
       this.backgroundChanger = module.BackgroundChanger.init(this.$target);
+      this.backgroundChanger.change();
       this.closeListeners = [];
     }
 
