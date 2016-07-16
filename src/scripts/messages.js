@@ -2,9 +2,9 @@ var ColorPalette;
 (function (module) {
   'use strict';
 
-  Object.defineProperty(module, 'colors', {
+  Object.defineProperty(module, 'messages', {
     get: function () {
-      return module.settings.colors;
+      return module.settings.messages[module.settings.lang] || {};
     }
   });
 })(ColorPalette || (ColorPalette = {}));

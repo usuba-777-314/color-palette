@@ -2,5 +2,9 @@ var ColorPalette;
 (function (module) {
   'use strict';
 
-  module.backgroundChangeFlag = true;
+  Object.defineProperty(module, 'backgroundChangeFlag', {
+    get: function () {
+      return module.settings.backgroundChangeFlag;
+    }
+  });
 })(ColorPalette || (ColorPalette = {}));

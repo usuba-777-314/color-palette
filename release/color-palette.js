@@ -1,5 +1,5 @@
 /*!
- * color-palette v0.0.0 - Simple color picker. The user can choose to take a color from palette.
+ * color-palette v0.0.0 - Simple color picker. A user can choose to take a color from palette.
  * Copyright 2015 hironobu-igawa
  * license MIT
  */
@@ -146,7 +146,11 @@ var ColorPalette;
 (function (module) {
   'use strict';
 
-  module.backgroundChangeFlag = true;
+  Object.defineProperty(module, 'backgroundChangeFlag', {
+    get: function () {
+      return module.settings.backgroundChangeFlag;
+    }
+  });
 })(ColorPalette || (ColorPalette = {}));
 
 var ColorPalette;
@@ -212,7 +216,7 @@ var ColorPalette;
       };
 
       var initStandardColors = function() {
-        $('<span>' + module.message.standardColor + '</span>')
+        $('<span>' + module.messages.standardColor + '</span>')
           .addClass('color-palette-standard-colors-title')
           .appendTo($balloon);
 
@@ -296,11 +300,11 @@ var ColorPalette;
 (function (module) {
   'use strict';
 
-  module.colors = [
-    ['#E60012', '#F39800', '#FFF100', '#8FC31F', '#009944', '#009E96'],
-    ['#00A0E9', '#0068B7', '#1D2088', '#920783', '#E4007F', '#E5004F'],
-    ['#000000', '#FFFFFF']
-  ];
+  Object.defineProperty(module, 'colors', {
+    get: function () {
+      return module.settings.colors;
+    }
+  });
 })(ColorPalette || (ColorPalette = {}));
 
 var ColorPalette;
@@ -318,17 +322,29 @@ var ColorPalette;
 (function (module) {
   'use strict';
 
-  module.lang = 'default';
-
-  module.langs = {
-    default: {
-      standardColor: 'Standard Color'
-    }
-  };
-
-  Object.defineProperty(module, 'message', {
+  Object.defineProperty(module, 'messages', {
     get: function () {
-      return module.langs[module.lang] || {};
+      return module.settings.messages[module.settings.lang] || {};
     }
   });
+})(ColorPalette || (ColorPalette = {}));
+
+var ColorPalette;
+(function (module) {
+  'use strict';
+
+  module.settings = {
+    colors: [
+      ['#E60012', '#F39800', '#FFF100', '#8FC31F', '#009944', '#009E96'],
+      ['#00A0E9', '#0068B7', '#1D2088', '#920783', '#E4007F', '#E5004F'],
+      ['#000000', '#FFFFFF']
+    ],
+    lang: 'default',
+    messages: {
+      default: {
+        standardColor: 'Standard Color'
+      }
+    },
+    backgroundChangeFlag: true
+  };
 })(ColorPalette || (ColorPalette = {}));

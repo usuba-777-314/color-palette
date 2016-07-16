@@ -61,7 +61,7 @@ var ColorPalette;
       };
 
       var initStandardColors = function() {
-        $('<span>' + module.message.standardColor + '</span>')
+        $('<span>' + module.messages.standardColor + '</span>')
           .addClass('color-palette-standard-colors-title')
           .appendTo($balloon);
 
