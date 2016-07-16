@@ -1,6 +1,6 @@
 {
   "name": "color-palette",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Simple color picker. A user can choose to take a color from palette.",
   "main": "index.js",
   "scripts": {
