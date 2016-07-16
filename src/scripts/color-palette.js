@@ -114,7 +114,7 @@ var ColorPalette;
             .appendTo($history);
         });
 
-        $('<button type="button">' + module.messages.selectOtherColor + '</button>')
+        $('<button type="button" tabindex="-1">' + module.messages.selectOtherColor + '</button>')
           .addClass('color-palette-history-select-other-color')
           .on('click', _this.selectOtherColor.bind(_this))
           .appendTo($balloon);
