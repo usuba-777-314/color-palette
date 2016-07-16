@@ -87,6 +87,12 @@ var ColorPalette;
       return this.each(function() {this.classList.add(className)});
     };
 
+    Element.prototype.hasClass = function(className) {
+      return this.elements.some(function(e) {
+        return e.classList.contains(className)
+      });
+    };
+
     Element.prototype.css = function(key, value) {
       key = key.replace(/[-_](.)/g, function(m, g) { return g.toUpperCase(); });
       if (value === undefined)

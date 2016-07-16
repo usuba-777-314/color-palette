@@ -92,6 +92,12 @@ var ColorPalette;
       return this.each(function() {this.classList.add(className)});
     };
 
+    Element.prototype.hasClass = function(className) {
+      return this.elements.some(function(e) {
+        return e.classList.contains(className)
+      });
+    };
+
     Element.prototype.css = function(key, value) {
       key = key.replace(/[-_](.)/g, function(m, g) { return g.toUpperCase(); });
       if (value === undefined)
@@ -369,10 +375,19 @@ var ColorPalette;
   'use strict';
 
   module.init = function (param) {
+    var $target = $(param);
+    if ($target.elements.length > 1) {
+      return $target.elements.map(function(e) {return module.init(e)});
+    }
     var palette = new module.ColorPalette(param);
-    palette.$target.on('focus', function () {palette.open()});
+    if (!palette.$target.hasClass('color-palette-initialized')) {
+      palette.$target.on('focus', function () {palette.open()});
+      palette.$target.addClass('color-palette-initialized');
+    }
     return palette;
   };
+
+  var $ = module.Element;
 })(ColorPalette || (ColorPalette = {}));
 
 var ColorPalette;
