@@ -10,7 +10,7 @@ var pkg = require('./package.json');
 
 var banner = ['/*!',
   ' * <%= pkg.name %> v<%= pkg.version %> - <%= pkg.description %>',
-  ' * Copyright 2015 <%= pkg.author %>',
+  ' * Copyright 2016 <%= pkg.author %>',
   ' * license <%= pkg.license %>',
   ' */',
   ''].join('\n');
