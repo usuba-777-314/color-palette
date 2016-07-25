@@ -340,7 +340,7 @@ var ColorPalette;
         var target = this.$target.get(0);
         if (target == null) return 0;
         var rect = target.getBoundingClientRect();
-        return rect.left + window.pageXOffset;
+        return rect.left;
       }
     });
 
@@ -349,7 +349,7 @@ var ColorPalette;
         var target = this.$target.get(0);
         if (target == null) return 0;
         var rect = target.getBoundingClientRect();
-        return rect.top + window.pageYOffset + Number(target.offsetHeight) + 1;
+        return rect.top + Number(target.offsetHeight) + 1;
       }
     });
 
