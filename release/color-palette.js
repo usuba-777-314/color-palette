@@ -243,10 +243,7 @@ var ColorPalette;
       var $standardColors = null;
 
       var initBalloon = function() {
-        $balloon = $('<div>')
-          .addClass('color-palette-balloon')
-          .css('left', _this.xOffset + 'px')
-          .css('top', _this.yOffset + 'px');
+        $balloon = $('<div>').addClass('color-palette-balloon');
         _this.$target.after($balloon);
 
         var close1 = function(e) {
@@ -265,6 +262,12 @@ var ColorPalette;
           $(document).off('click', close1);
           $(document).off('scroll', close2);
         });
+      };
+
+      var afterInitBalloon = function() {
+        $balloon
+          .css('left', _this.xOffset + 'px')
+          .css('top', _this.yOffset + 'px');
       };
 
       var initStandardColors = function() {
@@ -322,6 +325,8 @@ var ColorPalette;
       initOtherColors();
 
       this.$palette = $balloon;
+
+      afterInitBalloon();
     };
 
     ColorPalette.prototype.destroyPaletteElement = function () {
@@ -348,8 +353,15 @@ var ColorPalette;
       get: function() {
         var target = this.$target.get(0);
         if (target == null) return 0;
+        var palette = this.$palette.get(0);
+        if (palette == null) return 0;
         var rect = target.getBoundingClientRect();
-        return rect.top + Number(target.offsetHeight) + 1;
+        var targetHeight = Number(target.offsetHeight);
+        var paletteHeight = Number(palette.offsetHeight);
+        var yOffset = rect.top + targetHeight;
+        return yOffset + paletteHeight <= window.innerHeight
+          ? yOffset + 1
+          : Math.max(yOffset - paletteHeight - targetHeight - 1, 0);
       }
     });
 
