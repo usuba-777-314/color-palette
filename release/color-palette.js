@@ -1,5 +1,5 @@
 /*!
- * color-palette v1.1.1 - Simple color picker. A user can choose to take a color from palette.
+ * color-palette v1.1.2 - Simple color picker. A user can choose to take a color from palette.
  * Copyright 2016 hironobu-igawa
  * license MIT
  */
